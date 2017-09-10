@@ -14,6 +14,8 @@
 		682E87D01ED127780071A92B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 682E87CE1ED127780071A92B /* LaunchScreen.storyboard */; };
 		682E87DB1ED127780071A92B /* maze1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682E87DA1ED127780071A92B /* maze1Tests.swift */; };
 		682E87E61ED127780071A92B /* maze1UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 682E87E51ED127780071A92B /* maze1UITests.swift */; };
+		6868E5441EE3D703006FE300 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6868E5431EE3D703006FE300 /* HomeViewController.swift */; };
+		68ED04681F650D6B0019047F /* images.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 68ED04671F650D6B0019047F /* images.jpeg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		682E87E11ED127780071A92B /* maze1UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = maze1UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		682E87E51ED127780071A92B /* maze1UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = maze1UITests.swift; sourceTree = "<group>"; };
 		682E87E71ED127780071A92B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6868E5431EE3D703006FE300 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		68ED04671F650D6B0019047F /* images.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = images.jpeg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +101,14 @@
 		682E87C41ED127780071A92B /* maze1 */ = {
 			isa = PBXGroup;
 			children = (
+				68ED04671F650D6B0019047F /* images.jpeg */,
 				682E87C51ED127780071A92B /* AppDelegate.swift */,
 				682E87C71ED127780071A92B /* ViewController.swift */,
 				682E87C91ED127780071A92B /* Main.storyboard */,
 				682E87CC1ED127780071A92B /* Assets.xcassets */,
 				682E87CE1ED127780071A92B /* LaunchScreen.storyboard */,
 				682E87D11ED127780071A92B /* Info.plist */,
+				6868E5431EE3D703006FE300 /* HomeViewController.swift */,
 			);
 			path = maze1;
 			sourceTree = "<group>";
@@ -193,6 +199,7 @@
 				TargetAttributes = {
 					682E87C11ED127780071A92B = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = 84Q47FTZCU;
 						ProvisioningStyle = Automatic;
 					};
 					682E87D51ED127780071A92B = {
@@ -233,6 +240,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				682E87D01ED127780071A92B /* LaunchScreen.storyboard in Resources */,
+				68ED04681F650D6B0019047F /* images.jpeg in Resources */,
 				682E87CD1ED127780071A92B /* Assets.xcassets in Resources */,
 				682E87CB1ED127780071A92B /* Main.storyboard in Resources */,
 			);
@@ -261,6 +269,7 @@
 			files = (
 				682E87C81ED127780071A92B /* ViewController.swift in Sources */,
 				682E87C61ED127780071A92B /* AppDelegate.swift in Sources */,
+				6868E5441EE3D703006FE300 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,6 +421,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 84Q47FTZCU;
 				INFOPLIST_FILE = maze1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.maze1;
@@ -424,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 84Q47FTZCU;
 				INFOPLIST_FILE = maze1/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.litech.maze1;
@@ -505,6 +516,7 @@
 				682E87EC1ED127780071A92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		682E87ED1ED127780071A92B /* Build configuration list for PBXNativeTarget "maze1Tests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +525,7 @@
 				682E87EF1ED127780071A92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		682E87F01ED127780071A92B /* Build configuration list for PBXNativeTarget "maze1UITests" */ = {
 			isa = XCConfigurationList;
@@ -521,6 +534,7 @@
 				682E87F21ED127780071A92B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
