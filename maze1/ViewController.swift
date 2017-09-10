@@ -26,8 +26,8 @@ class ViewController: UIViewController {
     //  var wallView: UIView!
     var maze: [[Int]] = []
     var checkArray: [Int] = []
-    let weight = 7
-    let height = 11
+    let weight = 9
+    let height = 13
     var d: Int = 0
     var h: Int = 0
     var w: Int = 0
@@ -70,12 +70,10 @@ class ViewController: UIViewController {
         //        textlabel = UILabel(frame:CGRect(x: 0, y: 0, width: screenSize.width, height: 60))
         
         
-        let bigCellWidth = screenSize.width  / CGFloat(maze[0].count)
-        let bigCellHeight = (screenSize.height) / CGFloat(maze.count) //  - headerHeight - headerView.layer.borderWidth
-        //  let smallCellWidth
-        
-        let smallCellWidth = bigCellWidth / 4
-        let smallCellHeight = bigCellHeight / 4
+        let smallCellWidth = screenSize.width  / (CGFloat((maze[0].count - 1) / 2 * 5 + 1))
+        let smallCellHeight = screenSize.height  / (CGFloat((maze.count - 1) / 2 * 5 + 1))
+        let bigCellWidth = smallCellWidth * 4
+        let bigCellHeight = smallCellHeight * 4
         
 //        let bigCellOffsetX = screenSize.width / CGFloat(maze[0].count * 2)
 //        let bigCellOffsetY = (screenSize.height) / CGFloat(maze.count * 2) //  - headerHeight - underBorder.frame.height
@@ -290,7 +288,7 @@ class ViewController: UIViewController {
         }
         //スタートとゴール
         maze[1][1] = 2
-        maze[9][5] = 3
+        maze[11][7] = 3
         
     }
     
@@ -351,17 +349,6 @@ class ViewController: UIViewController {
         //        }
         
         
-    }
-    //セルを作る
-    func createView(x:Int, y: Int, width:CGFloat, height:CGFloat, offsetX: CGFloat, offsetY:CGFloat) ->UIView{
-        let rect = CGRect(x: 0, y: 0, width: width, height: height)
-        let view = UIView(frame: rect)
-        
-        let center = CGPoint(x: offsetX + width * CGFloat(x), y: offsetY + height * CGFloat(y))
-        
-        view.center = center
-        
-        return view
     }
     
     func startAccelerometer() {
@@ -482,33 +469,160 @@ class ViewController: UIViewController {
         wallRectArray = []  //壁の初期化
         makeMaze()
         makeWall()
-        let cellWidth = screenSize.width / CGFloat(maze[0].count)
-        let cellHeight = screenSize.height / CGFloat(maze.count)
         
-        let cellOffsetX = screenSize.width / CGFloat(maze[0].count * 2)
-        let cellOffsetY = screenSize.height / CGFloat(maze.count * 2)
+        let smallCellWidth = screenSize.width  / (CGFloat((maze[0].count - 1) / 2 * 5 + 1))
+        let smallCellHeight = screenSize.height  / (CGFloat((maze.count - 1) / 2 * 5 + 1))
+        let bigCellWidth = smallCellWidth * 4
+        let bigCellHeight = smallCellHeight * 4
         
+        //        let bigCellOffsetX = screenSize.width / CGFloat(maze[0].count * 2)
+        //        let bigCellOffsetY = (screenSize.height) / CGFloat(maze.count * 2) //  - headerHeight - underBorder.frame.height
+        //        let smallCellOffsetX = bigCellOffsetX / 4
+        //        let smallCellOffsetY = bigCellOffsetY / 4
+        //        let verticalCellOffsetX = bigCellOffsetX / 4
+        //        let verticalCellOffsetY = bigCellOffsetY
+        //        let horizontalCellOffsetX = bigCellOffsetX
+        //        let horizontalCellOffsetY = bigCellOffsetY / 4
+        
+        
+        //セルの設定 1:壁 2:スタート 3:ゴール
+        
+        
+        var startY: CGFloat = 0.0
         for y in 0 ..< maze.count {
+            if y % 2 == 0 && y != 0{
+                startY += bigCellHeight
+            }else if y % 2 == 1{
+                startY += smallCellHeight
+            }
+            //            switch y {
+            //            case 0:
+            //                startY = 0
+            //            case 1:
+            //                startY += smallCellHeight
+            //            case 2:
+            //                startY += bigCellHeight
+            //            case 3:
+            //                startY += smallCellHeight
+            //
+            //            default:
+            //                fatalError()
+            //            }
+            var startX: CGFloat = 0.0
             for x in 0 ..< maze[y].count {
-                switch maze[y][x] {
-                case 1:
-                    let wallView = createView(x: x, y: y, width: cellWidth, height: cellHeight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    wallView.backgroundColor = UIColor.black
-                    view.addSubview(wallView)
-                    wallRectArray.append(wallView.frame)
-                case 2:
-                    startView = createView(x: x, y: y, width: cellWidth, height: cellHeight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    startView.backgroundColor = UIColor.green
-                    view.addSubview(startView)
-                case 3:
-                    goalView = createView(x: x, y: y, width: cellWidth, height: cellHeight, offsetX: cellOffsetX, offsetY: cellOffsetY)
-                    goalView.backgroundColor = UIColor.red
-                    view.addSubview(goalView)
-                default:
-                    break
+                if x % 2 == 0 && x != 0{
+                    startX += bigCellWidth
+                }else if x % 2 == 1{
+                    startX += smallCellWidth
                 }
+                
+                //                switch x {
+                //                case 0:
+                //                    startX = 0
+                //                case 1:
+                //                    startX += smallCellHeight
+                //                case 2:
+                //                    startX += bigCellHeight
+                //                case 3:
+                //                    startX += smallCellHeight
+                //
+                //                default:
+                //                    fatalError()
+                //                }
+                
+                if y % 2 == 0 && x % 2 == 0{ // 1番小さい壁
+                    switch maze[y][x] {
+                    case 1:
+                        let wallView = UIView(frame: CGRect(x: startX, y: startY, width: smallCellWidth, height: smallCellHeight))
+                        
+                        //                        let wallView = createView(x: x , y: y  , width: smallCellWidth, height: smallCellHeight, offsetX: smallCellOffsetX, offsetY: smallCellOffsetY)
+                        print("x: \(x), y: \(y), rect:\(wallView.frame)")
+                        wallView.backgroundColor = UIColor.black
+                        view.addSubview(wallView)
+                        wallRectArray.append(wallView.frame)
+                    case 2: // スタート
+                        //                        startView = createView(x: x, y: y, width: smallCellWidth, height: smallCellHeight, offsetX: smallCellOffsetX, offsetY: smallCellOffsetY) //  + headerHeight
+                        startView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        startView.backgroundColor = UIColor.green
+                        view.addSubview(startView)
+                    case 3: // ゴール
+                        goalView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        
+                        //                        goalView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        goalView.backgroundColor = UIColor.red
+                        view.addSubview(goalView)
+                    default:
+                        break
+                    }
+                }else if y % 2 == 1 && x % 2 == 1{ // 一番大きい壁
+                    switch maze[y][x] {
+                    case 1:
+                        //                        let wallView = createView(x: x , y: y  , width: bigCellWidth, height: bigCellHeight, offsetX: bigCellOffsetX, offsetY: bigCellOffsetY)
+                        
+                        let wallView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        print("x: \(x), y: \(y), rect:\(wallView.frame)")
+                        
+                        wallView.backgroundColor = UIColor.black
+                        view.addSubview(wallView)
+                        wallRectArray.append(wallView.frame)
+                    case 2:
+                        startView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        startView.backgroundColor = UIColor.green
+                        view.addSubview(startView)
+                    case 3:
+                        goalView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        goalView.backgroundColor = UIColor.red
+                        view.addSubview(goalView)
+                    default:
+                        break
+                    }
+                }else if y % 2 == 0 && x % 2 == 1{ // 横長
+                    switch maze[y][x] {
+                    case 1:
+                        //                        let wallView = createView(x: x , y: y  , width: horizontalCellWidth, height: horizontalCellHeight, offsetX: horizontalCellOffsetX, offsetY: horizontalCellOffsetY)
+                        
+                        let wallView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: smallCellHeight))
+                        print("x: \(x), y: \(y), rect:\(wallView.frame)")
+                        wallView.backgroundColor = UIColor.black
+                        view.addSubview(wallView)
+                        wallRectArray.append(wallView.frame)
+                    case 2:
+                        startView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        startView.backgroundColor = UIColor.green
+                        view.addSubview(startView)
+                    case 3:
+                        goalView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        goalView.backgroundColor = UIColor.red
+                        view.addSubview(goalView)
+                    default:
+                        break
+                    }
+                }else{ // 縦長
+                    switch maze[y][x] {
+                    case 1:
+                        //                        let wallView = createView(x: x , y: y  , width: verticalCellWidth, height: verticalCellHeight, offsetX: verticalCellOffsetX, offsetY: verticalCellOffsetY)
+                        let wallView = UIView(frame: CGRect(x: startX, y: startY, width: smallCellWidth, height: bigCellHeight))
+                        print("x: \(x), y: \(y), rect:\(wallView.frame)")
+                        wallView.backgroundColor = UIColor.black
+                        view.addSubview(wallView)
+                        wallRectArray.append(wallView.frame)
+                    case 2:
+                        startView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        startView.backgroundColor = UIColor.green
+                        view.addSubview(startView)
+                    case 3:
+                        goalView = UIView(frame: CGRect(x: startX, y: startY, width: bigCellWidth, height: bigCellHeight))
+                        goalView.backgroundColor = UIColor.red
+                        view.addSubview(goalView)
+                    default:
+                        break
+                    }
+                }
+                
             }
         }
+
+        
         //
         //        //        for y in 0 ..< height{
         //        //            for x in 0 ..< weight{
@@ -520,7 +634,7 @@ class ViewController: UIViewController {
         //        //            }
         //        //            print("")
         //        //        }
-        playerView = UIView(frame: CGRect(x: 0, y: 0, width: cellWidth / 6, height: cellHeight / 6))
+        playerView = UIView(frame: CGRect(x: 0, y: 0, width: bigCellWidth / 6, height: bigCellHeight / 6))
         playerView.center = startView.center
         playerView.backgroundColor = UIColor.gray
         self.view.addSubview(playerView)
